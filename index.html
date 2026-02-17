@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>VLAR | Vintage Luxury Marketplace</title>
+    
+    <script src="https://cdn.jsdelivr.net/npm/web3@1.8.0/dist/web3.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+    <style>
+        :root {
+            --primary-gold: #D4AF37;
+            --primary-gold-dark: #aa8c2c;
+            --dark-bg: #1a1a1a;
+            --light-bg: #fdfbf7;
+            --text-main: #333;
+            --text-light: #666;
+            --card-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            --success: #27ae60;
+            --border-radius: 12px;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--light-bg);
+            color: var(--text-main);
+            margin: 0; padding: 0;
+            line-height: 1.6;
+        }
+
+        h1, h2, h3 { font-family: 'Playfair Display', serif; color: var(--dark-bg); margin-top: 0; }
+
+        header {
+            background-color: #fff; padding: 20px 0;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            text-align: center; position: sticky; top: 0; z-index: 100;
+        }
+
+        .brand-logo { font-size: 2.5rem; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; }
+        .brand-logo span { color: var(--primary-gold); }
+        .subtitle { font-size: 0.9rem; color: var(--text-light); text-transform: uppercase; letter-spacing: 1px; }
+
+        .container { max-width: 1200px; margin: 40px auto; padding: 0 20px; }
+        .grid-layout { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 30px; }
+
+        .card {
+            background: #fff; padding: 30px; border-radius: var(--border-radius);
+            box-shadow: var(--card-shadow); border: 1px solid rgba(0,0,0,0.03);
+            transition: transform 0.3s ease;
+        }
+        .card:hover { transform: translateY(-5px); }
+
+        .card-header { display: flex; align-items: center; margin-bottom: 25px; border-bottom: 2px solid #f0f0f0; padding-bottom: 15px; }
+        .card-header i { font-size: 1.5rem; color: var(--primary-gold); margin-right: 15px; }
+
+        .form-group { margin-bottom: 20px; }
+        .form-group label { display: block; font-size: 0.85rem; font-weight: 600; color: var(--text-light); margin-bottom: 8px; text-transform: uppercase; }
+
+        input {
+            width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 8px;
+            font-family: 'Inter', sans-serif; transition: all 0.3s; box-sizing: border-box;
+        }
+        input:focus { outline: none; border-color: var(--primary-gold); box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1); }
+
+        .btn {
+            width: 100%; padding: 14px; background-color: var(--dark-bg); color: #fff;
+            border: none; border-radius: 8px; font-weight: 600; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 1px; display: flex; justify-content: center; align-items: center; gap: 10px;
+        }
+        .btn-gold { background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-gold-dark) 100%); }
+        .btn-outline { background: transparent; border: 2px solid var(--primary-gold); color: var(--primary-gold); }
+
+        .wallet-bar { background: #f8f9fa; border-radius: 50px; padding: 8px 20px; display: inline-flex; align-items: center; gap: 10px; font-weight: 600; border: 1px solid #eee; }
+        .status-dot { height: 10px; width: 10px; background-color: #ccc; border-radius: 50%; }
+        .status-dot.connected { background-color: var(--success); box-shadow: 0 0 10px var(--success); }
+
+        /* Timeline History Styles */
+        #historyResults ul { list-style: none; padding: 0; position: relative; }
+        #historyResults ul::before { content: ''; position: absolute; top: 0; bottom: 0; left: 20px; width: 2px; background: #eee; }
+        #historyResults li { position: relative; padding-left: 50px; margin-bottom: 25px; }
+        #historyResults li::before { content: ''; position: absolute; left: 11px; top: 5px; width: 20px; height: 20px; border-radius: 50%; background: #fff; border: 4px solid var(--primary-gold); z-index: 2; }
+        .history-card { background: #fdfdfd; border: 1px solid #eee; padding: 15px; border-radius: 8px; border-left: 4px solid var(--primary-gold); }
+        .history-action { font-weight: bold; font-size: 1.1rem; color: var(--dark-bg); }
+        .history-meta { font-size: 0.85rem; color: var(--text-light); margin-top: 5px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="brand-logo">Vlar <span>Marketplace</span></div>
+    <div class="subtitle">Authentication & Restoration for Fine Vintage</div>
+    <button class="wallet-bar" onclick="connectWallet()" style="cursor: pointer; border: none; margin-top: 10px;">
+        <span class="status-dot" id="statusDot"></span>
+        <span id="walletAddress">Connect Wallet</span>
+    </button>
+</header>
+
+<div class="container">
+    <div class="grid-layout">
+        
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-store"></i>
+                <h2>Curator Zone</h2>
+            </div>
+            <div class="form-group">
+                <label>Step 1: Mint New Asset</label>
+                <input type="text" id="tokenUri" placeholder="Item Name / Metadata URI">
+                <button class="btn btn-outline" onclick="mintNFT()" style="margin-top: 10px;">
+                    <i class="fas fa-magic"></i> Mint NFT
+                </button>
+            </div>
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+            <div class="form-group">
+                <label>Step 2: List for Sale</label>
+                <input type="number" id="listTokenId" placeholder="Token ID" style="margin-bottom: 10px;">
+                <input type="text" id="listPrice" placeholder="Price (ETH)">
+                <button class="btn btn-gold" onclick="listItem()" style="margin-top: 10px;">
+                    <i class="fas fa-tag"></i> List Item
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-shopping-bag"></i>
+                <h2>Collector Zone</h2>
+            </div>
+            <div class="form-group">
+                <label>Acquire Asset (Escrow)</label>
+                <input type="number" id="buyTokenId" placeholder="Enter Token ID to Purchase" style="margin-bottom: 10px;">
+                <button class="btn btn-gold" onclick="buyItem()">
+                    <i class="fas fa-credit-card"></i> Purchase & Lock Funds
+                </button>
+            </div>
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+            <div class="form-group">
+                <label>Finalize Delivery</label>
+                <input type="number" id="confirmTokenId" placeholder="Token ID" style="margin-bottom: 10px;">
+                <button class="btn" onclick="confirmDelivery()" style="background-color: var(--success);">
+                    <i class="fas fa-check-circle"></i> Confirm Receipt
+                </button>
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <i class="fas fa-search-dollar"></i>
+                <h2>Authentication Lab</h2>
+            </div>
+            <div class="form-group">
+                <label>Verifier Registration</label>
+                <button class="btn btn-outline" onclick="registerVerifier()">
+                    <i class="fas fa-user-shield"></i> Stake 0.01 ETH to Join
+                </button>
+            </div>
+            <hr style="border: 0; border-top: 1px solid #eee; margin: 20px 0;">
+            <div class="form-group">
+                <label>Process Verification</label>
+                <input type="number" id="verifyTokenId" placeholder="Token ID to Verify" style="margin-bottom: 15px;">
+                <div style="display: flex; gap: 10px;">
+                    <button class="btn" onclick="approveAuthentication()" style="flex: 1; font-size: 0.9rem;">
+                        <i class="fas fa-stamp"></i> Auth
+                    </button>
+                    <button class="btn" onclick="approveRestoration()" style="flex: 1; font-size: 0.9rem;">
+                        <i class="fas fa-tools"></i> Restore
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div> 
+
+    <div class="card" style="margin-top: 30px; text-align: center;">
+        <div class="card-header" style="justify-content: center;">
+            <i class="fas fa-star"></i>
+            <h2>Seller Reputation System</h2>
+        </div>
+        <div style="max-width: 500px; margin: 0 auto;">
+            <input type="text" id="sellerAddress" placeholder="Enter Seller Address" style="text-align: center;">
+            <button class="btn btn-gold" onclick="checkReputation()" style="margin-top: 15px;">
+                Check Trust Score
+            </button>
+        </div>
+        <div id="reputationResult" style="font-family: 'Playfair Display', serif; font-size: 4rem; color: var(--primary-gold); margin-top: 20px;"></div>
+    </div>
+
+    <div class="card" style="margin-top: 30px; border: 2px solid var(--primary-gold);">
+        <div class="card-header">
+            <i class="fas fa-history"></i>
+            <h2>Product Provenance (History)</h2>
+        </div>
+        <div style="display: flex; gap: 10px; margin-bottom: 20px;">
+            <input type="number" id="historyTokenId" placeholder="Enter Token ID for Timeline" style="flex: 1;">
+            <button class="btn btn-gold" onclick="fetchItemHistory()" style="width: auto; padding-left: 30px; padding-right: 30px;">
+                <i class="fas fa-search"></i> Trace
+            </button>
+        </div>
+        <div id="historyResults"></div>
+    </div>
+
+</div>
+
+<script src="app.js"></script>
+
+</body>
+</html>

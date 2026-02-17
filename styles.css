@@ -1,0 +1,231 @@
+/* --- Variables & Reset --- */
+:root {
+    --bg-color: #f9f9f9;
+    --text-color: #2c3e50;
+    --card-bg: #ffffff;
+    --primary: #1a1a1a;       /* Black/Dark Gray - Luxury */
+    --accent: #d4af37;        /* Gold - Premium */
+    --success: #27ae60;       /* Green - Action */
+    --verifier: #2980b9;      /* Blue - Trust */
+    --font-heading: 'Playfair Display', serif;
+    --font-body: 'Inter', sans-serif;
+}
+
+body {
+    background-color: var(--bg-color);
+    font-family: var(--font-body);
+    color: var(--text-color);
+    margin: 0;
+    padding: 0;
+    line-height: 1.6;
+}
+
+/* --- Layout --- */
+.main-wrapper {
+    max-width: 900px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+/* --- Header --- */
+header {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 3.5rem;
+    letter-spacing: 5px;
+    color: var(--primary);
+    font-weight: 700;
+}
+
+.tagline {
+    color: #7f8c8d;
+    font-size: 1.1rem;
+    margin-top: -10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.wallet-badge {
+    background: #eef2f3;
+    display: inline-block;
+    padding: 10px 20px;
+    border-radius: 50px;
+    margin-top: 20px;
+    font-weight: 600;
+    color: var(--text-color);
+    border: 1px solid #ddd;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+/* --- Cards General --- */
+.card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    margin-bottom: 30px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+    border: 1px solid rgba(0,0,0,0.03);
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+}
+
+.card-header {
+    padding: 20px 30px;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.card-header h2 {
+    font-family: var(--font-heading);
+    margin: 0;
+    font-size: 1.5rem;
+}
+
+.card-body {
+    padding: 30px;
+}
+
+.icon {
+    font-size: 1.2rem;
+}
+
+/* --- Specific Zone Styling --- */
+
+/* Seller - Minimalist Luxury */
+.seller-card .card-header { background: #fff; color: var(--primary); }
+.seller-card .icon { color: var(--primary); }
+
+/* Buyer - Action Oriented */
+.buyer-card .card-header { background: #f0fdf4; color: #14532d; }
+.buyer-card .icon { color: var(--success); }
+
+/* Verifier - Technical/Blue */
+.verifier-card { border-left: 5px solid var(--verifier); }
+.verifier-card .card-header { background: #f0f7ff; color: var(--verifier); }
+
+/* Bonus - Gold */
+.bonus-card { border: 2px solid var(--accent); }
+.bonus-card .card-header { background: #fffdf0; color: #b7950b; }
+.bonus-card .icon { color: var(--accent); }
+
+/* --- Inputs & Grid --- */
+.input-group { margin-bottom: 20px; }
+.row { display: flex; gap: 15px; }
+.col { flex: 1; }
+
+input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: var(--font-body);
+    transition: border 0.3s;
+    background: #fcfcfc;
+    box-sizing: border-box; /* Fixes padding issues */
+    margin-top: 5px;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary);
+    background: #fff;
+}
+
+label {
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #888;
+    letter-spacing: 0.5px;
+}
+
+.divider {
+    height: 1px;
+    background: #eee;
+    margin: 25px 0;
+}
+
+/* --- Buttons --- */
+button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.btn-dark {
+    background: var(--primary);
+    color: white;
+}
+.btn-dark:hover { background: #333; }
+
+.btn-primary {
+    background: var(--success);
+    color: white;
+}
+.btn-primary:hover { background: #219150; }
+
+.btn-success {
+    background: #2c3e50;
+    color: white;
+}
+
+.btn-outline {
+    background: transparent;
+    border: 2px solid var(--verifier);
+    color: var(--verifier);
+}
+.btn-outline:hover {
+    background: var(--verifier);
+    color: white;
+}
+
+.btn-gold {
+    background: var(--accent);
+    color: white;
+}
+.btn-gold:hover { background: #b8962e; }
+
+/* --- Extras --- */
+.info-text {
+    font-size: 0.9rem;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 15px;
+}
+
+.score-display {
+    text-align: center;
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--accent);
+    margin-top: 20px;
+    font-family: var(--font-heading);
+}
+
+.score-wrapper {
+    display: flex;
+    gap: 10px;
+    align-items: flex-end;
+}
+.score-wrapper button { margin-top: 0; }

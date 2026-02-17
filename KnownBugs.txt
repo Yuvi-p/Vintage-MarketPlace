@@ -1,0 +1,21 @@
+# Known Bugs & Limitations - VLAR Project
+Authors: [Your Names]
+
+1. Refresh Rate (UI):
+   - The User Interface (HTML/JS) does not automatically refresh after a transaction is confirmed. 
+   - Workaround: The user must manually refresh the page to see the updated status (e.g., milestone change).
+
+2. Decimal Precision:
+   - Prices are calculated in Wei. In rare edge cases of division for the 10% / 40% splits, there might be a tiny dust remainder (1-2 Wei) left in the contract due to Solidity's integer division.
+
+3. Gas Estimation:
+   - Occasionally, Metamask might overestimate the gas fees for the "approveAuthentication" function if the network is congested, showing a high fee warning.
+
+4. Image Hosting:
+   - The project uses simple URL links for NFT metadata. If the external link (IPFS/Cloud) goes down, the image might not load in the gallery.
+
+5. Verifier Restriction:
+   - Currently, only the contract owner can add new "Authorized Verifiers". There is no decentralized voting mechanism to remove a bad verifier.
+
+6. Hardcoded Royalties:
+   - The royalty percentage is fixed at 10% in the smart contract and cannot be changed dynamically after deployment.
