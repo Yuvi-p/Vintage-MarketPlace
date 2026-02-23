@@ -10,7 +10,6 @@ contract VintageItemNFT is ERC721, ERC721URIStorage, Ownable {
 
     constructor() ERC721("VintageLuxury", "VLAR") Ownable(msg.sender) {}
 
-    // הפונקציה שהאתר מחפש!
     function mintItem(string memory uri) public returns (uint256) {
         uint256 tokenId = _nextTokenId++;
         _safeMint(msg.sender, tokenId); // יוצר את ה-NFT לארנק של מי שקרא לפונקציה
@@ -18,7 +17,7 @@ contract VintageItemNFT is ERC721, ERC721URIStorage, Ownable {
         return tokenId;
     }
 
-    // --- פונקציות חובה ---
+    // --- Gas function ---
     function tokenURI(uint256 tokenId)
         public
         view
