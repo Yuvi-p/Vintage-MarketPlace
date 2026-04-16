@@ -1,9 +1,14 @@
-⚜️ VLAR | Vintage Luxury Marketplace
+# ⚜️ VLAR | Vintage Luxury Marketplace
 Decentralized Authentication, Restoration, and Escrow for Fine Vintage Assets.
+
+[![Solidity](https://img.shields.io/badge/Solidity-%23363636.svg?style=flat&logo=solidity&logoColor=white)](#)
+[![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?style=flat&logo=Ethereum&logoColor=white)](#)
+[![Web3.js](https://img.shields.io/badge/web3.js-F16822?style=flat&logo=web3.js&logoColor=white)](#)
+[![Status](https://img.shields.io/badge/Status-Completed-success)](#)
 
 VLAR is a blockchain-based ecosystem designed to bring transparency and trust to the high-end vintage market. By utilizing smart contracts, the platform ensures that every luxury item is authenticated and restored by verified experts before funds are released to the seller.
 
-✨ Key Features
+## ✨ Key Features
 Secure Escrow System: When a collector purchases an item, funds are locked in the smart contract. Payment is only released to the seller after the buyer confirms delivery.
 
 Proof of Authenticity (Milestones): Items must pass through a mandatory 4-stage lifecycle: Listed → Authenticated → Restoration → Delivered.
@@ -16,7 +21,7 @@ Seller Trust Scores: A reputation system that rewards reliable sellers with "Tru
 
 Loyalty Rewards (VLT): The ecosystem includes VintageLoyalty (VLT), an ERC-20 token used to reward users and incentivize platform participation.
 
-🛠 Technical Architecture
+### 🛠 Technical Architecture
 Smart Contracts
 VlarMarketplace.sol: The core engine handling escrow logic, milestone approvals, verifier management, and royalties.
 
@@ -31,7 +36,8 @@ Web3.js: For blockchain interaction and wallet connectivity.
 
 Frontend: HTML5, CSS3 (Luxury UI), and JavaScript.
 
-⚙️ Logic Flow & Math
+### ⚙️ Logic Flow & Math
+
 Listing: Sellers mint an NFT and list it for a price in Wei.
 
 Purchasing: The buyer sends the exact ETH amount, which is held by the contract.
@@ -44,7 +50,8 @@ Finalization: Upon buyer confirmation, the contract calculates a 10% platform ro
 SellerAmount=TotalPrice−(TotalPrice×0.10)
 Distribution: The royalty goes to the owner, and the remaining 90% is sent to the seller.
 
-⚠️ Known Limitations
+### ⚠️ Known Limitations
+
 Manual Refresh: The UI does not auto-update; a page refresh is required after transactions.
 
 Fixed Royalties: The 10% royalty fee is hardcoded and cannot be changed post-deployment.
@@ -53,7 +60,8 @@ Gas Estimation: Users may occasionally see high gas warnings in MetaMask during 
 
 Integer Division: Minor "dust" (1-2 Wei) may remain in the contract due to Solidity's integer division.
 
-🚀 How to Run
+## 🚀 How to Run
+
 Deploy Contracts: Deploy the .sol files via Remix or Hardhat.
 
 Configure App: Update the NFT_CONTRACT_ADDRESS and MARKETPLACE_CONTRACT_ADDRESS in app.js.
