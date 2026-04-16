@@ -1,10 +1,11 @@
 # ⚜️ VLAR | Vintage Luxury Marketplace
-Decentralized Authentication, Restoration, and Escrow for Fine Vintage Assets.
 
 [![Solidity](https://img.shields.io/badge/Solidity-%23363636.svg?style=flat&logo=solidity&logoColor=white)](#)
 [![Ethereum](https://img.shields.io/badge/Ethereum-3C3C3D?style=flat&logo=Ethereum&logoColor=white)](#)
 [![Web3.js](https://img.shields.io/badge/web3.js-F16822?style=flat&logo=web3.js&logoColor=white)](#)
 [![Status](https://img.shields.io/badge/Status-Completed-success)](#)
+
+Decentralized Authentication, Restoration, and Escrow for Fine Vintage Assets.
 
 VLAR is a blockchain-based ecosystem designed to bring transparency and trust to the high-end vintage market. By utilizing smart contracts, the platform ensures that every luxury item is authenticated and restored by verified experts before funds are released to the seller.
 
